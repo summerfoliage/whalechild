@@ -1,0 +1,155 @@
+/*
+  Whalechild – static site styles for GitHub Pages
+  - Font: Apple system serif (ui-serif / New York)
+  - Responsive, fluid type using clamp()
+  - Full-bleed background image with subtle dark overlay for legibility
+*/
+
+:root {
+  --brand-font: ui-serif, "New York", Georgia, "Times New Roman", Times, serif;
+  --text-color: #ffffff;
+  --overlay-color: rgba(0, 0, 0, 0.45);
+  --shadow-color: rgba(0, 0, 0, 0.35);
+  --letter-spacing: 0.02em;
+  --text-shadow-common: 0 2px 10px var(--shadow-color);
+  --accent: #ff4d4f;
+  --bg-brightness: 1.14;
+
+  /* Fluid typography scales between small and large viewports */
+  --brand-size: clamp(20px, 2.4vw, 34px);
+  --headline-size: clamp(18px, 2.6vw, 34px);
+  --subheadline-size: var(--headline-size);
+  --footer-size: clamp(10px, 1vw, 13px);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--text-color);
+  font-family: var(--brand-font);
+  line-height: 1.2;
+  letter-spacing: var(--letter-spacing);
+  text-shadow: var(--text-shadow-common);
+  font-weight: 400;
+  /* Background image layer */
+  position: relative;
+  min-height: 100svh;
+}
+
+/* Background image fill */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("background.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -2;
+  filter: brightness(var(--bg-brightness));
+  transform: translateZ(0);
+}
+
+/* Dark overlay for text contrast (lightened for higher brightness) */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.22) 0%, rgba(0,0,0,0.30) 60%, rgba(0,0,0,0.36) 100%);
+  z-index: -1;
+}
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 16px 22px;
+  pointer-events: none; /* Header is simple label; keep page click-through */
+}
+
+.brand {
+  pointer-events: auto;
+  font-size: var(--brand-size);
+  letter-spacing: var(--letter-spacing);
+  text-shadow: var(--text-shadow-common);
+  font-weight: 400;
+  font-family: "Bebas Neue", ui-serif, "New York", Georgia, "Times New Roman", Times, serif;
+}
+
+.hero {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.headline {
+  font-size: var(--headline-size);
+  margin: 0 0 10px 0;
+  letter-spacing: var(--letter-spacing);
+  text-shadow: var(--text-shadow-common);
+  font-weight: 400; /* unify with brand */
+}
+
+.subheadline {
+  font-size: var(--subheadline-size);
+  margin: 0;
+  opacity: 0.95;
+  letter-spacing: var(--letter-spacing);
+  text-shadow: var(--text-shadow-common);
+  font-weight: 400;
+}
+
+.accent { color: var(--accent); }
+
+.site-footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding: 18px 12px;
+  font-size: var(--footer-size);
+}
+
+.site-footer a {
+  color: var(--text-color);
+  text-decoration: none;
+  border-bottom: 0;
+}
+
+.site-footer a:hover,
+.site-footer a:focus {
+  text-decoration: none;
+  border-bottom: 0;
+}
+
+.contact { margin: 0 0 6px 0; }
+.legal { margin: 0; opacity: 0.9; }
+
+/* Small phones: fewer shadows, tighter spacing */
+@media (max-width: 420px) {
+  .site-header { padding: 12px 14px; }
+  .headline { line-height: 1.1; }
+}
+
+/* Large desktops: generous spacing */
+@media (min-width: 1440px) {
+  .site-footer { padding: 24px 12px; }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+
+
